@@ -13,5 +13,5 @@ Below, you'll find setup instructions if you are interested in running the code 
 <li>run: <code>npm install express dotenv</code></li>
 <li>run: <code>npm i --save-dev nodemon</code></li>
 <li>run: <code>npm i '@langchain/openai'</code></li>
-
+<br>
 <p>Feel free to ask if you need any further adjustments!</p>
