@@ -4,7 +4,7 @@ const { StringOutputParser } = require('@langchain/core/output_parsers');
 const dotenv = require('dotenv');
 dotenv.config();
 
-// Instantiate the OpenAI model
+// Instantiate OpenAI model
 const model = new ChatOpenAI({
     modelName: 'gpt-3.5-turbo',
     apiKey: process.env.OPENAI_API_KEY,
@@ -13,6 +13,7 @@ const model = new ChatOpenAI({
     verbose: true
 });
 
+// Function to generate AI response
 const getAIResponse = async(userMessage) => {
     try {
         // Create a prompt template
@@ -25,7 +26,6 @@ const getAIResponse = async(userMessage) => {
 
         // Chain together the prompt and the model
         const chain = prompt.pipe(model).pipe(parser);
-        console.log('Generating response...');
 
         // Return AI response
         return await chain.invoke({ query: userMessage });
@@ -35,7 +35,7 @@ const getAIResponse = async(userMessage) => {
     }
 }
 
-// Export generateResponse Function
+// Export getAIResponse Function
 module.exports = { getAIResponse };
 
 
