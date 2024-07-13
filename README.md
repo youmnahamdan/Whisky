@@ -15,3 +15,11 @@ Below, you'll find setup instructions if you are interested in running the code 
 <li>run: <code>npm i '@langchain/openai'</code></li>
 <br>
 <p>Feel free to ask if you need any further adjustments!</p>
+
+### How to start chatting?
+Via the terminal navigate to backend folder using <code>cd backend</code>, then start the server <code>nodeserver.js</code>. Now that our server is running at port 5000, we need to start tour website.
+Open another terminal and navigate to frontend folder <code>cd frontend</code>, then simply run <code>npm start</code>. The website will run on port 3000 if nothing else was using the port.
+<ol>
+  <li>Via the terminal, navigate to the backend folder using cd backend, then start the server by running node server.js. Now that our server is running at port 5000, we need to start our website.</li>
+  <li>Open another terminal and navigate to the frontend folder using cd frontend, then simply run npm start. The website will run on port 3000 if nothing else is using the port.</li>  
+</ol>
