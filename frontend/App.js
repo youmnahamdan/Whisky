@@ -1,7 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
-import sendIcon  from './logos/icons8-send-48.png';
+import sendIcon  from './logos/icons8-sent-64.png';  
+import logo from './logos/whisky.png'; 
+//import sendIcon  from './logos/icons8-slide-up-64.png'; 
+
+// TODO: add a waiting for response indication.
+/*
+logic:
+if the user send a message we can check or use useeffect for checking if we have a newreponse
+then we display this messaenger like waiting sign
+*/
+
+
+//TODO
+/*
+                  // check if item id is 3 [ask for place of residance]                             >>>>>>>
+                // display bot message and show menu items for selection                             >>>>>>>
+Send service function:
+if item id is 3
+  append bot message to ask for place of residence [shouldn't this be done in the back end?]
+  display POR menu
+
+if item.id is 5
+  ask if they would like to pay via reflect or jawal pay
+  [maybe make a mini doc to let the bot ask for it self]
+if any other service then just send service to backend
+
+
+*/
+
 
 const App = () => {
 
@@ -10,68 +38,88 @@ const App = () => {
   const [messages, setMessages] = useState([]); // messages is a list of message objects: {message content: user input, sender: 'user' or 'bot'}
   const [userInput, setUserInput] = useState('');
   const [showMenu, setShowMenu] = useState(true); // State variable to control the visibility of the menu.
+  const [showPOR, setShowPOR] = useState(false);
   const chatboxRef = useRef(null); // Auto scroll down.
 
   // Menu of selectable services
   const [menuItems, setItems] = useState([
     { id: 1, name: 'Internet Services'},
     { id: 2, name: 'Jawal Tawjihi'},
-    { id: 3, name: 'Our Campaigns' },
-    { id: 4, name: 'Service' },
-    { id: 5, name: 'Service Service' }
+    { id: 3, name: 'Campaigns and Offers' },    // Depends on POR
+    { id: 4, name: 'Giga Fiber' },
+    { id: 5, name: 'Yallah Shabab' },  // Exclusive for west bank
+    { id: 6, name: '3G' }
   ]);
 
-  // Function to send aa selected service from the menu to the backend.
-  const sendService = async (service) => {
-    setUserInput(''); // Clear user input {no latency}
-    addMessage(service, 'user');
+  // POR "Place Of Residance" menu
+  const [POR, setPOR] = useState([
+    { id: 101, name: 'West Bank'},
+    { id: 102, name: 'Gaza Strip'}
+  ]);  
 
-    // Send message to backend
-    try {
-      const response = await axios.post('/api/chat', { message: service });
-      addMessage(response.data.reply, 'bot');
-    } catch (error) {
-      console.error('Error sending message:', error);
-    }
-  }
+  //let messageContentRef.current = '';
+  const messageContentRef = useRef('');
 
   // Function to send message from input field to the backend.
   const sendMessage = async () => {
-    let uInput = userInput;
-    setUserInput(''); // Clear user input {no latency}.
-
+    //messageContentRef.current = userInput;
+    console.log(messageContentRef.current);
     // Handel empty input.
-    if (uInput.trim() === '') return;
+    if (messageContentRef.current.trim() === '') return;
     
     // Append message object to messages array.
-    addMessage(uInput, 'user');
-
+    addMessage(messageContentRef.current, 'user');
+    addMessage('...', 'bot');
     // Send message to backend
     try {
-      const response = await axios.post('/api/chat', { message: uInput });
+      const response = await axios.post('/api/chat', { message: messageContentRef.current });
+      removeMessage('...');
       addMessage(response.data.reply, 'bot');
     } catch (error) {
       console.error('Error sending message:', error);
     }
   };
 
+
+
+
+
   // Function to append a message object to the messages array via calling setMessages to update the state of messages.
-    const addMessage = (message, sender) => {
+  const addMessage = (message, sender) => {
     setMessages(prevMessages => [...prevMessages, { text: message, sender }]);
     setPrompt(true);
   };
 
+  // Function to remove a message from the state variable 'messages'
+  const removeMessage = (message) => {
+    setMessages(prevMessages => prevMessages.filter(msg => msg.text !== message));
+  };
+
+
+
+
+  const sendButtonClick = () => {
+    messageContentRef.current = userInput;
+    setUserInput(''); // Clear user input {no latency}
+    setShowPOR(false);
+    sendMessage();
+  }
+
+
   // Allow the usage of enter key to send a message.
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      sendMessage();
+      sendButtonClick();
     }
   };
+
+
+
 
   // useEffect to monitor changes in selectedService and prompt
   useEffect(() => {
     // Hide menu if user has selected a service or the prompt is false
-    if (selectedService !== '' || prompt) {
+    if (selectedService !== '' || prompt || selectedService.id === 3) {
       setShowMenu(false);
       console.log('HideMenu');
     } else {
@@ -87,12 +135,15 @@ const App = () => {
   }, [messages]);
 
 
+
+
+
   return (
     <div className='app'>
       
       {/* Header */}
       <div className='header'>
-            <h1>Whisky</h1>
+            <h1>Whisky <span>at you service...</span></h1>
       </div>
 
 
@@ -115,9 +166,34 @@ const App = () => {
               <div key={item.id} className='menu-wrapper'>
                 <button className='dynamic-menu-item' onClick={() =>{
                   setSelectedService(item.name);
-                  sendService(item.name);
+                  messageContentRef.current = item.name;
+                  console.log("messageContentRef.current: ",messageContentRef.current);
+
+                  if(item.id === 3) // User chose campaigns and offers and must prompt place of residance
+                      setShowPOR(true);
+                  else
+                    sendMessage();
                 }}>
                   {item.name}
+                </button>
+              </div>
+            ))}
+          </div>)}
+
+          {showPOR && (  // Using the state variable showPOR to control menu visability
+          <div className='menu-container'>
+            {POR.map(place => (
+              <div key={place.id} className='menu-wrapper'>
+                <button className='dynamic-menu-item' onClick={() =>{
+                  setSelectedService(place.name);
+                  messageContentRef.current += ' in '+place.name;
+                  //const newmessageContent = messageContentRef.current.concat(' in ' + place.name);
+                  console.log("messageContentRef.current: ",messageContentRef.current);
+                  sendMessage();
+                  setShowPOR(false);
+                  
+                }}>
+                  {place.name}
                 </button>
               </div>
             ))}
@@ -132,7 +208,7 @@ const App = () => {
             onKeyPress={handleKeyPress}
             placeholder='Type your message...'
           />
-          <button id='send-button' onClick={sendMessage}><img className ='send-icon'  src={sendIcon} alt='send'/></button>
+          <button id='send-button' className='send-button' onClick={sendButtonClick}><img className ='send-icon'  src={sendIcon} alt='send'/></button>
         </div>
       </div>
     </div>

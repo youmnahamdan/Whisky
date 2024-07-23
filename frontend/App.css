@@ -2,11 +2,11 @@
 
 /* Import Titillium Web font*/
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+BE+VLG:wght@100..400&family=Playwrite+DK+Uloopet:wght@100..400&display=swap');
 *{
   font-family: "Titillium Web", sans-serif;
   font-style: normal;
-  background-color: #F7F5F1;
+  /*background-color: #ffffff;*/
   box-sizing:border-box; ;
 }
 
@@ -17,9 +17,10 @@ body {
 .app{
   width: 100%;
   min-height: 100vh; /* Ensure the app fills the viewport height */
-  background-color: #F7F5F1;
+  /*background-color: #F7F5F1;*/
   display: flex; 
   flex-direction: column; /* Ensures children stack vertically */
+  background-image: linear-gradient(#d4f0c9, #c2edf5);
 }
 
 .header{
@@ -33,13 +34,27 @@ body {
 .header h1 {
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 1em;font-size: xx-large;
-  color:#1b4f56;
+  margin-left: 1em;
+  font-size: large;
+  color:#485257;
+  font-family: "Playwrite BE VLG", cursive;
+  
 }
-
+.header img {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 1em;/*font-size: xx-large;
+  color:#354146;
+  font-family: "Playwrite BE VLG", cursive;*/
+  
+}
+.header span{
+  color:rgb(106, 106, 106);
+  font-size: medium;
+}
 .chat-container {
   width: 60%;
-  background-color: #F7F5F1;
+  background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
@@ -70,14 +85,15 @@ body {
 }
 
 .chatbox .message.user {
-  background-image: linear-gradient(45deg, #387078, #1b4f56);
+  /*background-image: linear-gradient(45deg, #69BE39, #0055B8);*/
   align-self: flex-end; /* Right align user messages */
+  background-image: linear-gradient(45deg, #65B85D, #09BBCE);
   text-align: left;
   color: #ffffff;
 }
 
 .chatbox .message.bot {
-  background-color: #d2d2d2; /* Light red background */
+  background-color: #eaedef; /* Light red background */
   align-self: flex-start; /* Left align bot messages */
   text-align: left;
   color: #000000;
@@ -109,16 +125,22 @@ body {
 .dynamic-menu-item {
   padding: 10px 20px;
   border: none;
-  background-color:  #28666E;
-  color: white;
+  background-color: white;
+  color: #50a133;
+  /*color: #88da93;*/
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border-radius: 8px;
+  border: 2px solid #b2e7ca;
+  border-color: #bcf1c3;
+  transition: 0.09s;
   width: fit-content;
 }
 
 .dynamic-menu-item:hover {
-  background-color: #144046;
+  background-image: linear-gradient(45deg, #65B85D, #09BBCE);
+  border-color: #ffffff;
+  color: white;
 }
 
 .input-container {
@@ -133,7 +155,7 @@ textarea {
   padding: 20px ;
   border: none;
   outline: none;
-  background-color: #F7F5F1;
+  background-color: #ffffff;
   height: fit-content;
   max-height: 200px;
   min-height: 50px;
@@ -141,17 +163,25 @@ textarea {
   overflow-y: auto; /* Allow vertical scrolling */
 }
 
-#send-button {
-  width: 15%;
+.send-button {
+  width: 10%;
+  max-width: 80px;
   border: none;
   cursor: pointer;
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  border-radius: 100px;
+  background-color: #ffffff;
+  bottom: 13px;
+  right: 9px;
+}
+
+.send-button:hover {
+  background-image: linear-gradient(#d4f0c9, #c2edf5);
 }
 
 .send-icon{
   width: 48px;
   height: 48px; 
+  margin-top: 0.2em;
 }
 
