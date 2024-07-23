@@ -1,7 +1,11 @@
 # Whisky
 Whisky is a chatbot designed to interact with users and provide helpful assistance regarding queries about services provided by Jawal. This is an initial version of Whisky. Currently, the goal is to receive input from the user or a selection from a menu of services and send it to a chat model built using LangChain.
 
+## WARNING:
+PLEASE DON'T ATTEMPT TO COMMIT CHANGES DIRECTLY TO MAIN BRANCH.
+
 ### Project Setup
+PLEASE CHECK PROJECT SETUP.TXT FILE FOR SETUP INSTRUCTIONS.
 Below, you'll find setup instructions if you are interested in running the code yourself. Initially, you must install Node.js and npm.
 
 #### Frontend Setup
