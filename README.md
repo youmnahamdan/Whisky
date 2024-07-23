@@ -5,7 +5,7 @@ Whisky is a chatbot designed to interact with users and provide helpful assistan
 PLEASE DON'T ATTEMPT TO COMMIT CHANGES DIRECTLY TO MAIN BRANCH.
 
 ### Project Setup
-PLEASE CHECK PROJECT SETUP.TXT FILE FOR SETUP INSTRUCTIONS.
+PLEASE CHECK PROJECT SETUP.TXT FILE FOR SETUP INSTRUCTIONS.<br>
 Below, you'll find setup instructions if you are interested in running the code yourself. Initially, you must install Node.js and npm.
 
 #### Frontend Setup
