@@ -1,0 +1,60 @@
+Install Node.js and npm
+
+Frontend Setup:
+	run: npm create-react-app <appname>  // Installs dependencies and initiates a directory
+	or: npx create-react-app <app-name>
+
+	in package.json set the proxy to the url of the server (e.g. http//localhost:5000)
+
+Note: create-react-app by default initiates an npm and install all react modules
+So you don't have to do this work => (
+npm init -y
+npm i react@latest react-dom@latest
+)
+
+
+Backend Setup:
+	run: npm init -y // Initiate npm 
+	run: npm install express dotenv
+	run: npm i --save-dev nodemon // Used to restart server at every change automatically
+	npm i -g langchain@latest
+	npm i langchain cheerio
+	npm install @langchain/community
+	npm install -S @langchain/pinecone @pinecone-database/pinecone
+	run: npm i '@langchain/openai'
+	run: npm install -g nodemon // Install Nodemon globally
+	run: npm install --save-dev nodemon // Install Nodemon locally
+
+	insure this exists in package.json in the backend dir :
+	  "scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js",
+		"dev": "nodemon server.js"
+	},
+
+	To run the server, use nodemon server.js
+	if you encounter the follwoing error on a windows machine:
+	nodemon.ps1 cannot be loaded because running scripts is disabled on this system.
+
+	then:
+	1. start the power shell as an admin
+	2. paste this command: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser.
+	3. back to your terminal and run the server.
+
+	
+
+
+Project Structure: Generaly we need 2 json files, one for frontend and one for backend
+|--backend
+	|--server.js
+	|--chatbot.js
+	|--package.json
+|--Frontend
+	|--src 
+		|--App.js
+		...
+	|--package.json
+
+
+Backend modules are of type common.js modules, which is the traditional in Node.js. Subsequently,
+backend modules communicate via [module.exports{} and require()]
