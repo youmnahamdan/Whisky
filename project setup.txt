@@ -32,7 +32,8 @@ Backend Setup:
 		"dev": "nodemon server.js"
 	},
 
-	To run the server, use nodemon server.js
+	To run the server:
+	<code>node run dev</code>
 	if you encounter the follwoing error on a windows machine:
 	nodemon.ps1 cannot be loaded because running scripts is disabled on this system.
 
